@@ -1,0 +1,71 @@
+tags:
+  - name: wallet
+    description: Wallet API
+
+paths:
+  # [POST] wallet-connect
+  /wallet-connect:
+    post:
+      tags:
+        - wallet
+      summary: Add Wallet
+      parameters:
+        - name: body
+          in: body
+          description: wallet data
+          required: true
+          schema:
+            $ref: '#/definitions/wallet'
+      responses:
+        200:
+          description: 'Success'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+  # [GET] wallet-connect/id
+  /wallet-connect/{id}:
+    get:
+      tags:
+        - wallet
+      summary: Find Wallet by ID
+      parameters:
+        - name: id
+          in: path
+          description: Wallet ID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# definitions
+definitions:
+  wallet:
+    type: object
+    required:
+      # - userId
+      - walletAddress
+      - walletName
+    properties:
+      # userId:
+      #   type: integer
+      #   description: User ID
+      #   default: 1
+      walletAddress:
+        type: string
+        description: Wallet Address
+        default: 0xababa...
+      walletName:
+        type: string
+        description: Wallet Name
+        default: Main Account
+schemes:
+  - https
+  - http

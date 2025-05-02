@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Buy cool new product</title>
+    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="Content-Security-Policy"
+  content="default-src 'self' data:gap: http://www.visitsingapore.com 
+  https://ssl.gstatic.com 'unsafe-eval';
+  style-src 'self' 'unsafe-inline';
+  media-src *;
+  script-src 'sha256-V+/U3qbjHKP0SaNQhMwYNm62gfWX4QHwPJ7We1PXokI='
+">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+    <section>
+        <div class="product">
+            <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+            <div class="description">
+                <h3>Stubborn Attachments</h3>
+            </div>
+        </div>
+        <form id="myform" action="" method="POST">
+            <input name="prodId" value="prod_Nj3lcxg9s5tqMi" />
+            <input name="amount" value="5" />
+            <button type="submit" id="checkout-button">Checkout</button>
+        </form>
+    </section>
+    <script>
+        // $(function () {
+        //     $('myform').submit(function () {
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: '/payment/stripe-checkout',
+        //             data: {
+        //                 prodId: $(this).prodId.value,
+        //                 amount: $(this).amount.value
+        //             }
+        //         });
+        //         return false;
+        //     });
+        // });
+    </script>
+</body>
+
+
+</html>

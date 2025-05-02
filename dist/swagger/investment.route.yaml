@@ -1,0 +1,170 @@
+tags:
+  - name: investment
+    description: Investment API
+
+paths:
+  # [GET] invest/walletId
+  /invest/{walletId}:
+    get:
+      tags:
+        - investment
+      summary: Find Investments by Wallet ID
+      parameters:
+        - name: walletId
+          in: path
+          description: Wallet ID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+  /invest:
+    get:
+      tags:
+        - invest
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: page number
+        - in: query
+          name: pageCount
+          schema:
+            type: integer
+          description: page count
+        - in: query
+          name: orderKeys
+          schema:
+            type: string
+          description: amount,createAt
+        - in: query
+          name: orderValues
+          schema:
+            type: string
+          description: DESC,ASC
+      summary: Find All Investments
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+  # [POST] invest
+  /invest/:
+    post:
+      tags:
+        - investment
+      summary: Add investment
+      parameters:
+        - name: body
+          in: body
+          description: investment data
+          required: true
+          schema:
+            $ref: '#/definitions/investment'
+      responses:
+        200:
+          description: 'Success'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+  # [PUT] invest/id
+  /invest/{id}:
+    put:
+      tags:
+        - investment
+      summary: Update Investment by ID
+      parameters:
+        - name: id
+          in: path
+          description: Investment ID
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: investment data
+          required: true
+          schema:
+            $ref: '#/definitions/investment'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+    # [DELETE] invest/id
+    delete:
+      tags:
+        - investment
+      summary: Delete Investment by Id
+      parameters:
+        - name: id
+          in: path
+          description: investment Id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# definitions
+definitions:
+  investment:
+    type: object
+    required:
+      - walletId
+      - amount
+      - currency
+      - referralCode
+      - txnHash
+      - txnStatus
+      - transferWalletAddr
+    properties:
+      walletId:
+        type: integer
+        description: Wallet ID
+        default: 2
+      amount:
+        type: integer
+        description: Amount
+        default: 12
+      currency:
+        type: string
+        description: Currency
+        default: usdc
+      referralCode:
+        type: string
+        description: Referral Code
+        default: 1231
+      txnHash:
+        type: string
+        description: tnx Hash
+        default: 0xababa111...
+      txnStatus:
+        type: string
+        description: tnx Status
+        default: pending
+      transferWalletAddr:
+        type: string
+        description: Transfer Wallet Address
+        default: 0xabababa....
+
+schemes:
+  - https
+  - http

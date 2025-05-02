@@ -1,0 +1,233 @@
+tags:
+  - name: auth
+    description: Authentication API
+
+paths:
+  /signup:
+    post:
+      tags:
+        - auth
+      summary: Signup user
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/users'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+  /login:
+    post:
+      tags:
+        - auth
+      summary: Signin user
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/loginUser'
+      responses:
+        200:
+          description: 'Success'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+  /admin/signup:
+    post:
+      tags:
+        - auth
+      summary: Signup admin user
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/admin'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'  
+  /admin/login:
+    post:
+      tags:
+        - auth
+      summary: Signin user
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/adminLoginUser'
+      responses:
+        200:
+          description: 'Success'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+  /verify-login:
+    post:
+      tags:
+        - auth
+      summary: Signin user
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/verifyLoginUser'
+      responses:
+        200:
+          description: 'Success'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+  /auth-check:
+    get:
+      tags:
+        - auth
+      summary: Check auth
+      responses:
+        200:
+          description: 'Success'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+  /auth/referral:
+    post:
+      tags:
+        - auth
+      summary: Create referral
+      responses:
+        200:
+          description: 'Success'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# definitions
+definitions:
+  users:
+    type: object
+    required:
+      - email
+      - name
+      - phone
+    properties:
+      email:
+        type: string
+        description: user Email
+        default: test@gmail.com
+      name:
+        type: string
+        description: user name
+        default: testuser
+      phone:
+        type: string
+        description: user phone
+        default: +971502827635
+      referralCode:
+        type: string
+        description: user phone
+        default: null
+  loginUser:
+    type: object
+    required:
+      - email
+    properties:
+      email:
+        type: string
+        description: user Email
+        default: test@gmail.com
+  admin:
+    type: object
+    required:
+      - email
+      - name
+      - phone
+      - password
+    properties:
+      email:
+        type: string
+        description: admin Email
+        default: testadmin@gmail.com
+      password:
+        type: string
+        description: user Password
+        default: admin12345
+      name:
+        type: string
+        description: admin name
+        default: testadmin
+      phone:
+        type: string
+        description: admin phone
+        default: +94715463225     
+      referralCode:
+        type: string
+        description: admin phone
+        default: null
+  adminLoginUser:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        description: user Email
+        default: testadmin@gmail.com
+      password:
+        type: string
+        description: user password
+        default: admin12345
+  verifyLoginUser:
+    type: object
+    required:
+      - email
+      - otp
+    properties:
+      email:
+        type: string
+        description: user Email
+        default: test@gmail.com
+      otp:
+        type: string
+        description: OTP
+        default: 123456
+
+schemes:
+  - https
+  - http

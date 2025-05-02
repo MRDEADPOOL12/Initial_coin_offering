@@ -1,0 +1,42 @@
+service: trapaaca
+provider:
+  name: aws
+  region: me-central-1
+  runtime: nodejs18.x
+  # apiGateway:
+  #   # Attach to an externally created REST API via its ID:
+  #   restApiId: sg1zxwf01d
+  #   restApiRootResourceId: vrn10wytad
+package:
+  patterns:
+    - '!node_modules/typescript/**'
+
+functions:
+  backend-services:
+    handler: dist/server.handler
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      RDS_DB: trapaca
+      RDS_KEY: "dev/tpk/rds"
+      DB_USER: admin
+      DB_PASSWORD: 12341234
+      DB_HOST: "trapaca.czgaep964x5p.me-central-1.rds.amazonaws.com"
+      DB_PORT: 3306
+      DB_DATABASE: trapaca
+      SECRET_KEY: secretKey
+      LOG_FORMAT: dev
+      LOG_DIR: ../logs
+      ORIGIN: '*'
+      CREDENTIALS: true
+      TWILIO_SID: ''
+      TWILIO_AUTH: ''
+      STRIPE_SECRET: sk_test_51MowXdKxJz7QSedyBHMKfLLWj9eeZyIC04Rn8JGzMVPKyUk9ApgYWBGudMNHflOHeQGr5ALO9uX1pS2tEZyK8lzv00Amxcj2Y2
+      STRIPE_PUBLIC_KEY: pk_test_51MowXdKxJz7QSedyi7WoGTObf7OsICvlPEnIkYjqBm53QcFam8u9W89AMKG8wRci1tFAu4Roc8aOG4ZKXGfMOrPO00gpbO6Fp5
+      STRIPE_ENDPOINT_SECRET: whsec_UjSkuotJwfSDfBTLgTpwRYr5ZDYcvtbH
+      LOG_ENV: serverless
+    memorySize: 512 # optional, in MB, default is 1024
+    timeout: 60 #
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}
